@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>California Road Trip 🌴</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & ROOT ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ocean:    #1a6b8a;
+  --ocean-lt: #2a8fb5;
+  --sunset:   #e8683a;
+  --sunset-lt:#f4935a;
+  --sand:     #f5e6c8;
+  --sand-lt:  #fdf6ea;
+  --sequoia:  #5c3d2e;
+  --green:    #2e7d52;
+  --yellow:   #d97706;
+  --red:      #c0392b;
+  --text:     #2c2c2c;
+  --text-muted:#6b7280;
+  --bg:       #fafaf8;
+  --card-bg:  #ffffff;
+  --border:   #e5e0d8;
+  --tab-h:    64px;
+  --header-h: 112px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-lt) 50%, #1d7fa3 100%);
+  padding: 14px 16px 12px;
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.app-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  color: #fff;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.app-header .subtitle {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+.header-wave {
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 10px;
+  background: var(--bg);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+/* ===== TAB BAR ===== */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--tab-h);
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  padding: 6px 0 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-btn .tab-icon { font-size: 1.35rem; line-height: 1; }
+.tab-btn.active { color: var(--ocean); }
+.tab-btn.active .tab-icon { transform: scale(1.12); }
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  padding-top: calc(var(--header-h) + 6px);
+  padding-bottom: calc(var(--tab-h) + 16px);
+  min-height: 100vh;
+}
+.tab-panel { display: none; padding: 16px; animation: fadeIn 0.22s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--ocean);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== BADGES ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.badge-green  { background: #d1fae5; color: var(--green); }
+.badge-yellow { background: #fef3c7; color: var(--yellow); }
+.badge-red    { background: #fee2e2; color: var(--red); }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
+}
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+.card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.3;
+}
+.card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+.card-detail {
+  font-size: 0.82rem;
+  color: var(--text);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-ocean { background: var(--ocean); color: #fff; }
+.btn-ocean:hover { background: var(--ocean-lt); }
+.btn-sunset { background: var(--sunset); color: #fff; }
+.btn-sunset:hover { background: var(--sunset-lt); }
+.btn-outline { background: transparent; color: var(--ocean); border: 1.5px solid var(--ocean); }
+
+/* ===== HOTEL PRICE ===== */
+.hotel-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--sequoia);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.hotel-price small { font-size: 0.7rem; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--text-muted); }
+
+/* ===== ACCORDION (timeline) ===== */
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--ocean-lt), var(--sunset));
+  border-radius: 2px;
+}
+.day-item { position: relative; margin-bottom: 10px; }
+.day-dot {
+  position: absolute;
+  left: -27px; top: 14px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--ocean);
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 2px var(--ocean-lt);
+  z-index: 2;
+}
+.day-dot.transit { background: var(--sunset); box-shadow: 0 0 0 2px var(--sunset-lt); }
+.day-btn {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.day-btn:hover, .day-btn.open { border-color: var(--ocean-lt); box-shadow: 0 3px 12px rgba(26,107,138,0.12); }
+.day-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.day-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ocean);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.day-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 1px;
+}
+.day-emoji { font-size: 1.1rem; }
+.day-chevron {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.22s;
+  flex-shrink: 0;
+}
+.day-btn.open .day-chevron { transform: rotate(180deg); }
+.day-body {
+  display: none;
+  padding: 10px 4px 4px;
+  font-size: 0.84rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+.day-body.open { display: block; }
+.day-body ul { list-style: none; padding: 0; }
+.day-body ul li { padding: 3px 0; display: flex; gap: 7px; align-items: flex-start; }
+.day-body ul li::before { content: '▸'; color: var(--ocean-lt); font-size: 0.75rem; padding-top: 2px; flex-shrink: 0; }
+.day-body .note {
+  background: var(--sand-lt);
+  border-left: 3px solid var(--sunset);
+  border-radius: 0 8px 8px 0;
+  padding: 7px 10px;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--sequoia);
+}
+.day-hotel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(90deg, var(--ocean) 0%, var(--ocean-lt) 100%);
+  color: #fff;
+  border-radius: 99px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ===== BUDGET ===== */
+.budget-total {
+  background: linear-gradient(135deg, var(--ocean) 0%, var(--sequoia) 100%);
+  border-radius: 18px;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(26,107,138,0.25);
+}
+.budget-total .label { font-size: 0.8rem; opacity: 0.85; letter-spacing: 0.05em; text-transform: uppercase; }
+.budget-total .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 4px 0 2px;
+  line-height: 1;
+}
+.budget-total .note { font-size: 0.75rem; opacity: 0.75; }
+.budget-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.budget-row:last-child { border-bottom: none; }
+.budget-row .icon { font-size: 1.2rem; flex-shrink: 0; }
+.budget-row .bname { font-size: 0.88rem; font-weight: 500; }
+.budget-row .bsub { font-size: 0.74rem; color: var(--text-muted); }
+.budget-row .bprice { font-weight: 700; font-size: 0.92rem; color: var(--sequoia); white-space: nowrap; }
+.budget-row .bprice.confirmed { color: var(--green); }
+
+/* ===== INFO ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.info-tile {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.info-tile .ti { font-size: 1.6rem; }
+.info-tile .tl { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+.info-tile .tv { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-top: 2px; }
+.emergency-card {
+  background: #fff5f5;
+  border: 1.5px solid #fca5a5;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.emergency-card h3 { color: var(--red); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; }
+.emergency-card ul { list-style: none; }
+.emergency-card li { font-size: 0.84rem; padding: 3px 0; display: flex; gap: 8px; }
+.emergency-card .num { font-weight: 700; color: var(--red); }
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item .ci { font-size: 1.1rem; flex-shrink: 0; }
+.checklist-item .ct { font-weight: 600; margin-bottom: 1px; }
+.checklist-item .cd { font-size: 0.78rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="app-header">
+  <h1>🌴 California Road Trip</h1>
+  <div class="subtitle">9–19 Settembre 2026 &nbsp;·&nbsp; Mina &amp; Francesco</div>
+  <div class="header-wave"></div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="main-content">
+
+<!-- ================= TAB: ITINERARIO ================= -->
+<section id="tab-itinerario" class="tab-panel active">
+  <div class="section-title">🗓️ Itinerario</div>
+  <div class="timeline">
+
+    <!-- Giorno 1 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 1 · Mer 9 Sett</div>
+            <div class="day-name"><span class="day-emoji">✈️</span> Arrivo a San Francisco</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Arrivo a SFO · check-in al Cornell Hotel de France (Union Square)</li>
+            <li>Passeggiata all'Embarcadero e al Ferry Building Marketplace</li>
+            <li>Prima cena americana — oyster bar o Fisherman's Wharf</li>
+          </ul>
+          <div class="day-hotel-pill">🏨 Cornell Hotel de France · Union Square</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 2 -->
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 2 · Gio 10 Sett</div>
+            <div class="day-name"><span class="day-emoji">⛵</span> Alcatraz + North Beach</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Ore 9:30 → Pier 33 (imbarco Alcatraz)</li>
+            <li>Ore 10:10 → Tour Alcatraz Island ✅ prenotato</li>
+            <li>Pomeriggio → North Beach (quartiere italiano, Caffe Trieste)</li>
+            <li>Sera → Chinatown · Grant Avenue</li>
+          </ul>
+          <div class="note">✅ Alcatraz già prenotato · ore 10:10 · Pier 33 alle 9:30</div>
+          <div class="day-hotel-pill">🏨 Cornell Hotel de France · Union Square</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 3 -->
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 3 · Ven 11 Sett</div>
+            <div class="day-name"><span class="day-emoji">🌉</span> Golden Gate + Muir Woods</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Golden Gate Bridge (a piedi o in bici)</li>
+            <li>Traghetto per Sausalito → pranzo fronte baia</li>
+            <li>Shuttle per Muir Woods National Monument ($3,50/p) ⚠️ da prenotare</li>
+            <li>Traghetto di rientro a San Francisco</li>
+          </ul>
+          <div class="note">⚠️ Shuttle Muir Woods: prenotare su gomuirwoods.com · $3,50/persona</div>
+          <div class="day-hotel-pill">🏨 Cornell Hotel de France · Union Square</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 4 -->
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 4 · Sab 12 Sett</div>
+            <div class="day-name"><span class="day-emoji">🏘️</span> Mission · Painted Ladies · Twin Peaks</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Mission District — murales, colazione da Tartine Bakery</li>
+            <li>Haight-Ashbury · negozi vintage e storia hippie</li>
+            <li>Alamo Square · Painted Ladies (le 7 case vittoriane)</li>
+            <li>Twin Peaks · panorama su tutta la città</li>
+            <li>Tram storico (cable car) per rientrare</li>
+          </ul>
+          <div class="day-hotel-pill">🏨 Cornell Hotel de France · Union Square</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 5 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 5 · Dom 13 Sett</div>
+            <div class="day-name"><span class="day-emoji">🚗</span> SF → Yosemite</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Mattina libera a San Francisco · last brunch</li>
+            <li>Ritiro auto a noleggio all'aeroporto SFO</li>
+            <li>Viaggio verso Yosemite (~3h30)</li>
+            <li>Check-in Evergreen Lodge · cena in lodge</li>
+          </ul>
+          <div class="day-hotel-pill">🏨 Evergreen Lodge at Yosemite</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 6 -->
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 6 · Lun 14 Sett</div>
+            <div class="day-name"><span class="day-emoji">🏔️</span> Yosemite Valley</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Tunnel View — panorama iconico sulla valley</li>
+            <li>El Capitan · vista dal basso</li>
+            <li>Yosemite Falls · cascata più alta del parco</li>
+            <li>Mirror Lake · riflesso di Half Dome sull'acqua</li>
+            <li>Half Dome Viewpoint · tramonto</li>
+          </ul>
+          <div class="note">✅ America the Beautiful Pass copre l'ingresso al parco</div>
+          <div class="day-hotel-pill">🏨 Evergreen Lodge at Yosemite</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 7 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 7 · Mar 15 Sett</div>
+            <div class="day-name"><span class="day-emoji">🌲</span> Yosemite → Sequoia</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Mattina: ultima passeggiata a Yosemite</li>
+            <li>Viaggio verso Sequoia National Park (~3h)</li>
+            <li>General Sherman Tree — l'albero più grande del mondo</li>
+            <li>Giant Forest Museum · Congress Trail</li>
+            <li>Check-in Comfort Suites a Tulare</li>
+          </ul>
+          <div class="note">✅ America the Beautiful Pass copre l'ingresso a Sequoia</div>
+          <div class="day-hotel-pill">🏨 Comfort Suites Tulare Sequoia Gateway</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 8 -->
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 8 · Mer 16 Sett</div>
+            <div class="day-name"><span class="day-emoji">🏞️</span> Sequoia &amp; Kings Canyon</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Kings Canyon Scenic Byway — route panoramica</li>
+            <li>Zumwalt Meadow · prato tra pareti di granito</li>
+            <li>Cedar Grove Village · pranzo sul Kings River</li>
+            <li>Rientro a Tulare nel tardo pomeriggio</li>
+          </ul>
+          <div class="day-hotel-pill">🏨 Comfort Suites Tulare Sequoia Gateway</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 9 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 9 · Gio 17 Sett</div>
+            <div class="day-name"><span class="day-emoji">🦅</span> Tulare → Pinnacles → Firebaugh</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Viaggio verso Pinnacles National Park (~1h30)</li>
+            <li>Escursione: Balconies Cave Trail o High Peaks Trail</li>
+            <li>Avvistamento condor della California (specie rara!)</li>
+            <li>Sera → check-in Best Western Apricot Inn a Firebaugh (~55 km da Pinnacles)</li>
+          </ul>
+          <div class="note">✅ America the Beautiful Pass copre l'ingresso a Pinnacles</div>
+          <div class="day-hotel-pill">🏨 Best Western Apricot Inn · Firebaugh</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 10 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 10 · Ven 18 Sett</div>
+            <div class="day-name"><span class="day-emoji">🏄</span> Firebaugh → Santa Cruz</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Mattina libera · colazione in hotel (inclusa)</li>
+            <li>Viaggio verso Santa Cruz (~1h15)</li>
+            <li>Santa Cruz Boardwalk — luna park sul mare</li>
+            <li>Spiaggia, surf, boardwalk, downtown</li>
+            <li>Check-in Drift Inn · vicino al Boardwalk</li>
+          </ul>
+          <div class="day-hotel-pill">🏨 Drift Inn · Santa Cruz</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Giorno 11 -->
+    <div class="day-item">
+      <div class="day-dot transit"></div>
+      <button class="day-btn" onclick="toggleDay(this)">
+        <div class="day-head">
+          <div>
+            <div class="day-label">Giorno 11 · Sab 19 Sett</div>
+            <div class="day-name"><span class="day-emoji">🛫</span> Santa Cruz → SFO · Rientro</div>
+          </div>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Mattina: ultima colazione a Santa Cruz</li>
+            <li>Viaggio verso SFO (~1h15)</li>
+            <li>Restituzione auto a noleggio · imbarco</li>
+            <li>Volo di rientro verso Bari</li>
+          </ul>
+          <div class="note">🌅 Fine del road trip. Arrivederci, California!</div>
+        </div>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= TAB: HOTEL ================= -->
+<section id="tab-hotel" class="tab-panel">
+  <div class="section-title">🏨 Hotel</div>
+
+  <!-- Cornell SF -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Cornell Hotel de France</div>
+        <div class="card-meta">📍 715 Bush St, Union Square · San Francisco</div>
+        <div class="card-meta">📅 9–13 Settembre 2026 · 4 notti</div>
+      </div>
+      <div class="hotel-price">€486<br><small>tot.</small></div>
+    </div>
+    <div class="card-detail">
+      🍳 Colazione inclusa &nbsp;·&nbsp; ✅ Cancellazione gratuita<br>
+      🏙️ Posizione centrale, vicino a Union Square e ai tram
+    </div>
+    <div style="margin-top:8px;">
+      <span class="badge badge-green">✅ Prenotato</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://maps.google.com/?q=Cornell+Hotel+de+France+San+Francisco" target="_blank" class="btn btn-ocean">📍 Apri Maps</a>
+    </div>
+  </div>
+
+  <!-- Evergreen Lodge -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Evergreen Lodge at Yosemite</div>
+        <div class="card-meta">📍 33160 Evergreen Rd, Groveland, CA</div>
+        <div class="card-meta">📅 13–15 Settembre 2026 · 2 notti</div>
+      </div>
+      <div class="hotel-price">€366<br><small>tot.</small></div>
+    </div>
+    <div class="card-detail">
+      🌲 Lodge rustico immerso nel bosco, vicino all'ingresso del parco<br>
+      🍽️ Ristorante in loco
+    </div>
+    <div style="margin-top:8px;">
+      <span class="badge badge-green">✅ Prenotato</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://maps.google.com/?q=Evergreen+Lodge+at+Yosemite+Groveland" target="_blank" class="btn btn-ocean">📍 Apri Maps</a>
+    </div>
+  </div>
+
+  <!-- Comfort Suites Tulare -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Comfort Suites Tulare Sequoia Gateway</div>
+        <div class="card-meta">📍 Tulare, CA · ~1h da Sequoia</div>
+        <div class="card-meta">📅 15–17 Settembre 2026 · 2 notti</div>
+      </div>
+      <div class="hotel-price">€205<br><small>tot.</small></div>
+    </div>
+    <div class="card-detail">
+      🍳 Colazione inclusa &nbsp;·&nbsp; 🌲 Gateway per Sequoia &amp; Kings Canyon<br>
+      🚗 ~1 ora dall'ingresso del parco
+    </div>
+    <div style="margin-top:8px;">
+      <span class="badge badge-green">✅ Prenotato</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://maps.google.com/?q=Comfort+Suites+Tulare+Sequoia+Gateway" target="_blank" class="btn btn-ocean">📍 Apri Maps</a>
+    </div>
+  </div>
+
+  <!-- Best Western Firebaugh -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Best Western Apricot Inn</div>
+        <div class="card-meta">📍 Firebaugh, CA · ~55 km da Pinnacles</div>
+        <div class="card-meta">📅 17–18 Settembre 2026 · 1 notte</div>
+      </div>
+      <div class="hotel-price">€113<br><small>tot.</small></div>
+    </div>
+    <div class="card-detail">
+      🍳 Colazione inclusa &nbsp;·&nbsp; 🦅 Base per Pinnacles National Park
+    </div>
+    <div style="margin-top:8px;">
+      <span class="badge badge-green">✅ Prenotato</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://maps.google.com/?q=Best+Western+Apricot+Inn+Firebaugh+CA" target="_blank" class="btn btn-ocean">📍 Apri Maps</a>
+    </div>
+  </div>
+
+  <!-- Drift Inn Santa Cruz -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Drift Inn</div>
+        <div class="card-meta">📍 Santa Cruz, CA · vicino al Boardwalk</div>
+        <div class="card-meta">📅 18–19 Settembre 2026 · 1 notte</div>
+      </div>
+      <div class="hotel-price">€188<br><small>tot.</small></div>
+    </div>
+    <div class="card-detail">
+      🏄 A pochi passi dal Santa Cruz Beach Boardwalk<br>
+      🚗 ~1h15 da SFO per il volo di rientro
+    </div>
+    <div style="margin-top:8px;">
+      <span class="badge badge-green">✅ Prenotato</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://maps.google.com/?q=Drift+Inn+Santa+Cruz+CA" target="_blank" class="btn btn-ocean">📍 Apri Maps</a>
+    </div>
+  </div>
+
+  <!-- Riepilogo notti -->
+  <div class="card" style="background: var(--sand-lt); border-color: var(--sand);">
+    <div class="section-title" style="font-size:1rem; margin-bottom:10px;">📊 Riepilogo alloggi</div>
+    <div class="budget-row">
+      <span class="icon">🌆</span>
+      <div><div class="bname">San Francisco</div><div class="bsub">4 notti · 9–13 sett</div></div>
+      <span class="bprice confirmed">€486</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🏔️</span>
+      <div><div class="bname">Yosemite</div><div class="bsub">2 notti · 13–15 sett</div></div>
+      <span class="bprice confirmed">€366</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🌲</span>
+      <div><div class="bname">Sequoia / Tulare</div><div class="bsub">2 notti · 15–17 sett</div></div>
+      <span class="bprice confirmed">€205</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🦅</span>
+      <div><div class="bname">Pinnacles / Firebaugh</div><div class="bsub">1 notte · 17–18 sett</div></div>
+      <span class="bprice confirmed">€113</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🏄</span>
+      <div><div class="bname">Santa Cruz</div><div class="bsub">1 notte · 18–19 sett</div></div>
+      <span class="bprice confirmed">€188</span>
+    </div>
+    <div class="budget-row" style="border-top: 2px solid var(--border); padding-top:12px;">
+      <span class="icon">💰</span>
+      <div><div class="bname" style="font-weight:700;">Totale alloggi</div><div class="bsub">10 notti · 5 hotel</div></div>
+      <span class="bprice" style="font-size:1.05rem; color:var(--ocean);">€1.358</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TAB: BUDGET ================= -->
+<section id="tab-budget" class="tab-panel">
+  <div class="section-title">💰 Budget</div>
+
+  <div class="budget-total">
+    <div class="label">Stima totale viaggio · 2 persone</div>
+    <div class="amount">€1.700 – €2.200</div>
+    <div class="note">Escluso volo · include tutte le spese a terra</div>
+  </div>
+
+  <!-- Prenotazioni confermate -->
+  <div class="card">
+    <div class="section-title" style="font-size:0.95rem; color: var(--green); margin-bottom: 10px;">✅ Prenotazioni confermate</div>
+
+    <div class="budget-row">
+      <span class="icon">🏨</span>
+      <div><div class="bname">Alloggi (5 hotel · 10 notti)</div><div class="bsub">Tutti confermati e prenotati</div></div>
+      <span class="bprice confirmed">€1.358</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">⛵</span>
+      <div><div class="bname">Alcatraz</div><div class="bsub">10 sett · ore 10:10 · Pier 33</div></div>
+      <span class="bprice confirmed">✅</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🎫</span>
+      <div><div class="bname">America the Beautiful Pass</div><div class="bsub">Yosemite + Sequoia + Pinnacles</div></div>
+      <span class="bprice confirmed">€75 (~$80)</span>
+    </div>
+  </div>
+
+  <!-- Spese variabili -->
+  <div class="card">
+    <div class="section-title" style="font-size:0.95rem; color: var(--ocean); margin-bottom: 10px;">📊 Spese variabili stimate</div>
+
+    <div class="budget-row">
+      <span class="icon">🚗</span>
+      <div><div class="bname">Auto a noleggio</div><div class="bsub">~7 giorni · SFO pick-up &amp; drop-off</div></div>
+      <span class="bprice">€250–380</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">⛽</span>
+      <div><div class="bname">Carburante</div><div class="bsub">~900 km di guida stimati</div></div>
+      <span class="bprice">€80–110</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🍽️</span>
+      <div><div class="bname">Cibo e ristoranti</div><div class="bsub">11 giorni · colazione inclusa in 4 hotel</div></div>
+      <span class="bprice">€350–500</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🎭</span>
+      <div><div class="bname">Ingressi e attività</div><div class="bsub">Tour, musei, ferry, etc.</div></div>
+      <span class="bprice">€80–120</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🛒</span>
+      <div><div class="bname">Shopping e varie</div><div class="bsub">Souvenir, medicine, emergenze</div></div>
+      <span class="bprice">~€100</span>
+    </div>
+  </div>
+
+  <!-- Da prenotare -->
+  <div class="card" style="border-color: #fcd34d; background: #fffbeb;">
+    <div class="section-title" style="font-size:0.95rem; color: var(--yellow); margin-bottom: 10px;">⚠️ Da prenotare</div>
+
+    <div class="budget-row">
+      <span class="icon">🚌</span>
+      <div><div class="bname">Shuttle Muir Woods</div><div class="bsub">gomuirwoods.com · $3,50/persona</div></div>
+      <span class="bprice" style="color:var(--yellow);">~€7</span>
+    </div>
+    <div class="card-actions" style="margin-top:6px;">
+      <a href="https://gomuirwoods.com" target="_blank" class="btn btn-sunset">🔗 Prenota Shuttle</a>
+    </div>
+  </div>
+
+  <!-- Recap totale -->
+  <div class="card" style="background: linear-gradient(135deg, #f0f9ff, var(--sand-lt));">
+    <div class="section-title" style="font-size:0.95rem; margin-bottom:12px;">📈 Riepilogo finale</div>
+    <div class="budget-row">
+      <span class="icon">🏨</span>
+      <div><div class="bname">Alloggi confermati</div></div>
+      <span class="bprice confirmed">€1.358</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🚗</span>
+      <div><div class="bname">Auto + carburante</div></div>
+      <span class="bprice">€330–490</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🎫</span>
+      <div><div class="bname">Parchi + pass</div></div>
+      <span class="bprice">€75–80</span>
+    </div>
+    <div class="budget-row">
+      <span class="icon">🍽️</span>
+      <div><div class="bname">Cibo + attività</div></div>
+      <span class="bprice">€430–620</span>
+    </div>
+    <div class="budget-row" style="border-top: 2.5px solid var(--ocean-lt); padding-top:12px; margin-top:4px;">
+      <span class="icon">💎</span>
+      <div><div class="bname" style="font-weight:800; font-size:1rem;">TOTALE STIMATO</div><div class="bsub">Per 2 persone · escluso volo</div></div>
+      <span class="bprice" style="font-size:1.1rem; color:var(--ocean); font-weight:800;">€1.700–2.200</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TAB: INFO ================= -->
+<section id="tab-info" class="tab-panel">
+  <div class="section-title">ℹ️ Info Utili</div>
+
+  <!-- Info grid -->
+  <div class="info-grid">
+    <div class="info-tile">
+      <div class="ti">🕐</div>
+      <div class="tl">Fuso orario</div>
+      <div class="tv">UTC-7 (PDT)<br><span style="font-size:0.75rem;font-weight:400;">Roma −9h</span></div>
+    </div>
+    <div class="info-tile">
+      <div class="ti">💵</div>
+      <div class="tl">Valuta</div>
+      <div class="tv">Dollaro USA<br><span style="font-size:0.75rem;font-weight:400;">1€ ≈ $1.08</span></div>
+    </div>
+    <div class="info-tile">
+      <div class="ti">🚗</div>
+      <div class="tl">Guida</div>
+      <div class="tv">A destra<br><span style="font-size:0.75rem;font-weight:400;">Patente EU ok</span></div>
+    </div>
+    <div class="info-tile">
+      <div class="ti">🔌</div>
+      <div class="tl">Presa</div>
+      <div class="tv">Tipo A/B<br><span style="font-size:0.75rem;font-weight:400;">110V · serve adatt.</span></div>
+    </div>
+    <div class="info-tile">
+      <div class="ti">🌡️</div>
+      <div class="tl">Clima · sett.</div>
+      <div class="tv">15–27°C SF<br><span style="font-size:0.75rem;font-weight:400;">Parchi: 0–25°C</span></div>
+    </div>
+    <div class="info-tile">
+      <div class="ti">📱</div>
+      <div class="tl">SIM/Roaming</div>
+      <div class="tv">eSIM locale<br><span style="font-size:0.75rem;font-weight:400;">o pacchetto int'l</span></div>
+    </div>
+  </div>
+
+  <!-- Emergenze -->
+  <div class="emergency-card">
+    <h3>🚨 Numeri di emergenza</h3>
+    <ul>
+      <li><span>🆘</span> <span>Emergenze generali:</span> <span class="num">911</span></li>
+      <li><span>🏥</span> <span>Ambulanza / Fuoco:</span> <span class="num">911</span></li>
+      <li><span>🇮🇹</span> <span>Consolato IT a San Francisco:</span> <span class="num">+1 415-292-9210</span></li>
+      <li><span>🏦</span> <span>Visa emergenze carte:</span> <span class="num">+1 800-847-2911</span></li>
+      <li><span>📞</span> <span>Italy (prefisso da USA):</span> <span class="num">011-39-...</span></li>
+    </ul>
+  </div>
+
+  <!-- Prenotazioni da fare -->
+  <div class="card" style="border-color: #fcd34d; background: #fffbeb;">
+    <div class="section-title" style="font-size:0.95rem; color: var(--yellow); margin-bottom:10px;">⚠️ Da completare prima del viaggio</div>
+    <div class="checklist-item">
+      <span class="ci">🚌</span>
+      <div>
+        <div class="ct">Shuttle Muir Woods</div>
+        <div class="cd">gomuirwoods.com · $3,50/persona · giorno 11 sett</div>
+      </div>
+      <span class="badge badge-yellow">Da fare</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">🔌</span>
+      <div>
+        <div class="ct">Adattatore presa elettrica</div>
+        <div class="cd">Tipo A/B americano (110V)</div>
+      </div>
+      <span class="badge badge-yellow">Da fare</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">📱</span>
+      <div>
+        <div class="ct">Piano dati USA</div>
+        <div class="cd">eSIM o pacchetto roaming TIM/Vodafone</div>
+      </div>
+      <span class="badge badge-yellow">Da fare</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">🚗</span>
+      <div>
+        <div class="ct">Auto a noleggio</div>
+        <div class="cd">SFO · dom 13 sett · ritiro e riconsegna</div>
+      </div>
+      <span class="badge badge-yellow">Da fare</span>
+    </div>
+  </div>
+
+  <!-- Prenotate OK -->
+  <div class="card" style="border-color: #6ee7b7; background: #f0fdf4;">
+    <div class="section-title" style="font-size:0.95rem; color: var(--green); margin-bottom:10px;">✅ Già prenotato</div>
+    <div class="checklist-item">
+      <span class="ci">⛵</span>
+      <div>
+        <div class="ct">Alcatraz Island</div>
+        <div class="cd">10 sett · ore 10:10 · Pier 33 ore 9:30</div>
+      </div>
+      <span class="badge badge-green">✅ OK</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">🏨</span>
+      <div>
+        <div class="ct">Tutti e 5 gli hotel</div>
+        <div class="cd">Cornell SF · Evergreen · Comfort Suites · Apricot Inn · Drift Inn</div>
+      </div>
+      <span class="badge badge-green">✅ OK</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">🎫</span>
+      <div>
+        <div class="ct">America the Beautiful Pass</div>
+        <div class="cd">$80 · Yosemite + Sequoia + Pinnacles inclusi</div>
+      </div>
+      <span class="badge badge-green">✅ OK</span>
+    </div>
+    <div class="checklist-item">
+      <span class="ci">✈️</span>
+      <div>
+        <div class="ct">Volo ITA Airways</div>
+        <div class="cd">Bari → SFO · 9 sett · rientro 19 sett</div>
+      </div>
+      <span class="badge badge-green">✅ OK</span>
+    </div>
+  </div>
+
+  <!-- Quick links -->
+  <div class="card">
+    <div class="section-title" style="font-size:0.95rem; margin-bottom:10px;">🔗 Link utili</div>
+    <div class="card-actions" style="flex-direction: column; gap: 8px;">
+      <a href="https://gomuirwoods.com" target="_blank" class="btn btn-sunset" style="justify-content:center;">🌲 Prenota Shuttle Muir Woods</a>
+      <a href="https://www.recreation.gov/ticket/facility/234666" target="_blank" class="btn btn-ocean" style="justify-content:center;">⛵ Biglietti Alcatraz</a>
+      <a href="https://store.usgs.gov/store/product/21711" target="_blank" class="btn btn-outline" style="justify-content:center;">🎫 America the Beautiful Pass</a>
+      <a href="https://www.nps.gov/yose/index.htm" target="_blank" class="btn btn-outline" style="justify-content:center;">🏔️ Yosemite NPS</a>
+      <a href="https://www.nps.gov/seki/index.htm" target="_blank" class="btn btn-outline" style="justify-content:center;">🌲 Sequoia &amp; Kings Canyon NPS</a>
+      <a href="https://www.nps.gov/pinn/index.htm" target="_blank" class="btn btn-outline" style="justify-content:center;">🦅 Pinnacles NPS</a>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 16px 0 8px; font-size:0.75rem; color:var(--text-muted);">
+    🌴 California Road Trip 2026 · Mina &amp; Francesco
+  </div>
+</section>
+
+</main>
+
+<!-- ===== TAB BAR ===== -->
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('itinerario', this)">
+    <span class="tab-icon">🗓️</span>
+    Itinerario
+  </button>
+  <button class="tab-btn" onclick="switchTab('hotel', this)">
+    <span class="tab-icon">🏨</span>
+    Hotel
+  </button>
+  <button class="tab-btn" onclick="switchTab('budget', this)">
+    <span class="tab-icon">💰</span>
+    Budget
+  </button>
+  <button class="tab-btn" onclick="switchTab('info', this)">
+    <span class="tab-icon">ℹ️</span>
+    Info
+  </button>
+</nav>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleDay(btn) {
+  const body = btn.querySelector('.day-body');
+  const isOpen = body.classList.contains('open');
+  // close all
+  document.querySelectorAll('.day-body.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.day-btn.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    body.classList.add('open');
+    btn.classList.add('open');
+    setTimeout(() => {
+      btn.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }, 60);
+  }
+}
+</script>
+</body>
+</html>
